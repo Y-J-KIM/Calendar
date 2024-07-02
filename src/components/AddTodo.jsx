@@ -15,6 +15,7 @@ const AddTodo = ({ onAddTodo }) => {
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
+    console.log("Selected Date:", date); // 선택한 날짜 출력
   };
 
   const handleStatusChange = (e) => {
@@ -34,6 +35,8 @@ const AddTodo = ({ onAddTodo }) => {
     });
     setInput("");
     // 선택된 날짜와 색상은 초기화하지 않음
+    setSelectedDate(new Date());
+    setStatus("todo");
   };
 
   return (
@@ -59,11 +62,10 @@ const AddTodo = ({ onAddTodo }) => {
           selected={selectedDate}
           onChange={handleDateChange}
           showTimeSelect
-          showTimeSelectOnly // 시간 선택 창만 표시
           timeFormat="HH:mm"
           timeIntervals={15}
           timeCaption="시간"
-          dateFormat="h:mm aa"
+          dateFormat="YYYY-MM-dd h:mm aa"
           className="datepicker"
           popperPlacement="bottom"
           placeholderText="시간을 선택해주세요"

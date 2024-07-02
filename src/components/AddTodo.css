@@ -19,6 +19,11 @@
   border-radius: 5px;
   width: 100%;
   margin: 10px;
+  font-size: 18px;
+}
+
+.status-select {
+  font-size: 18px;
 }
 
 .add-button {

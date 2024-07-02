@@ -15,20 +15,22 @@ function App() {
     setSelectedDate(date);
   };
 
-  const handleAddTodo = (text) => {
-    const newTodo = {
-      text: text,
-      time: selectedDate, // 여기에서 선택된 날짜를 그대로 사용
-    };
-    setTodos([...todos, newTodo]);
+  const handleAddTodo = (todo) => {
+    setTodos([...todos, todo]);
   };
 
-  const handleDeleteTodo = (todo) => {
-    const updatedTodos = todos.filter((item) => item !== todo);
-    setTodos(updatedTodos);
+  const handleDeleteTodo = (todoToDelete) => {
+    setTodos(todos.filter((todo) => todo !== todoToDelete));
   };
+
+  const todosForSelectedDate = todos.filter(
+    (todo) =>
+      format(new Date(todo.time), "yyyy-MM-dd") ===
+      format(selectedDate, "yyyy-MM-dd")
+  );
 
   useEffect(() => {
+    console.log("todos update:", todos);
     localStorage.setItem("todos", JSON.stringify(todos));
   }, [todos]);
 
@@ -49,7 +51,10 @@ function App() {
         </div>
         <h2>{format(selectedDate, "yyyy-MM-dd")}</h2>
         <div className="todo-list-container">
-          <TodoList todos={todos} onDeleteTodo={handleDeleteTodo} />
+          <TodoList
+            todos={todosForSelectedDate}
+            onDeleteTodo={handleDeleteTodo}
+          />
         </div>
       </div>
     </div>
