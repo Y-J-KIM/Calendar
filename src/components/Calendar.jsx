@@ -78,6 +78,7 @@ const Calendar = ({ selectedDate, onDateChange, todos }) => {
       for (let i = 0; i < 7; i++) {
         formattedDate = format(day, dateFormat);
         const cloneDay = day;
+        //const todosForDate = getTodosForDate(cloneDay);
         days.push(
           <div
             className={`col cell ${
@@ -118,11 +119,24 @@ const Calendar = ({ selectedDate, onDateChange, todos }) => {
           <div
             key={index}
             className="todo-item"
-            style={{ backgroundColor: todo.color }}
-          />
+            style={{ backgroundColor: getTodoColor(todo.status) }}
+          ></div>
         ))}
       </>
     );
+  };
+
+  const getTodoColor = (status) => {
+    switch (status) {
+      case "todo":
+        return "#f7dd4c";
+      case "doing":
+        return "#4caf50";
+      case "done":
+        return "#ff4d4d";
+      default:
+        return "#000";
+    }
   };
 
   const nextMonth = () => {
@@ -140,6 +154,7 @@ const Calendar = ({ selectedDate, onDateChange, todos }) => {
   const prevYear = () => {
     onDateChange(subYears(selectedDate, 1));
   };
+
   return (
     <div className="calendar">
       {renderHeader()}

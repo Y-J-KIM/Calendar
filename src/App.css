@@ -1,0 +1,21 @@
+@font-face {
+  font-family: "WavvePADO-Regular";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2404@1.0/WavvePADO-Regular.woff2")
+    format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  font-family: "WavvePADO-Regular";
+}
+
+.todo-list-container {
+  margin-top: 20px;
+  width: 100%;
+}
+
+.todo-list-container h2 {
+  margin-bottom: 20px;
+  text-align: center;
+}

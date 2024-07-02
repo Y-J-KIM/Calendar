@@ -7,7 +7,7 @@ import "./AddTodo.css";
 const AddTodo = ({ onAddTodo }) => {
   const [input, setInput] = useState("");
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [selectedColor, setSelectedColor] = useState("#dc3545"); // 기본 색상: 빨강
+  const [status, setStatus] = useState("todo");
 
   const handleChange = (e) => {
     setInput(e.target.value);
@@ -17,8 +17,8 @@ const AddTodo = ({ onAddTodo }) => {
     setSelectedDate(date);
   };
 
-  const handleColorChange = (color) => {
-    setSelectedColor(color);
+  const handleStatusChange = (e) => {
+    setStatus(e.target.value);
   };
 
   const handleSubmit = (e) => {
@@ -30,7 +30,7 @@ const AddTodo = ({ onAddTodo }) => {
     onAddTodo({
       text: input,
       time: selectedDate,
-      color: selectedColor,
+      status: status,
     });
     setInput("");
     // 선택된 날짜와 색상은 초기화하지 않음
@@ -45,39 +45,34 @@ const AddTodo = ({ onAddTodo }) => {
         placeholder="할 일을 입력하세요"
         className="todo-input"
       />
-      <DatePicker
-        selected={selectedDate}
-        onChange={handleDateChange}
-        showTimeSelect
-        showTimeSelectOnly // 시간 선택 창만 표시
-        timeFormat="HH:mm"
-        timeIntervals={15}
-        timeCaption="시간"
-        dateFormat="h:mm aa"
-        className="datepicker"
-        popperPlacement="bottom"
-        placeholderText="시간을 선택해주세요"
-      />
-      <div className="color-selector">
-        <button
-          className="color-button red"
-          style={{ backgroundColor: "#dc3545" }}
-          onClick={() => handleColorChange("#dc3545")}
+      <div className="todo-input2">
+        <select
+          value={status}
+          onChange={handleStatusChange}
+          className="status-select"
+        >
+          <option value="todo">할 일</option>
+          <option value="doing">진행중</option>
+          <option value="done">완료</option>
+        </select>
+        <DatePicker
+          selected={selectedDate}
+          onChange={handleDateChange}
+          showTimeSelect
+          showTimeSelectOnly // 시간 선택 창만 표시
+          timeFormat="HH:mm"
+          timeIntervals={15}
+          timeCaption="시간"
+          dateFormat="h:mm aa"
+          className="datepicker"
+          popperPlacement="bottom"
+          placeholderText="시간을 선택해주세요"
         />
-        <button
-          className="color-button blue"
-          style={{ backgroundColor: "#007bff" }}
-          onClick={() => handleColorChange("#007bff")}
-        />
-        <button
-          className="color-button green"
-          style={{ backgroundColor: "#28a745" }}
-          onClick={() => handleColorChange("#28a745")}
-        />
+
+        <button type="submit" className="add-button">
+          추가
+        </button>
       </div>
-      <button type="submit" className="add-button">
-        추가
-      </button>
     </form>
   );
 };

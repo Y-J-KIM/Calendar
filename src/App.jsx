@@ -4,6 +4,7 @@ import TodoList from "./components/TodoList";
 import AddTodo from "./components/AddTodo";
 import format from "date-fns/format";
 
+import "./App.css";
 const saveTodos = localStorage.getItem("todos");
 
 function App() {
@@ -33,7 +34,7 @@ function App() {
 
   return (
     <div className="app">
-      <h1>나의 달력</h1>
+      <h1>Todo List</h1>
       <div className="calendar-container">
         <Calendar
           selectedDate={selectedDate}
@@ -46,8 +47,8 @@ function App() {
           <h2>할 일 추가</h2>
           <AddTodo onAddTodo={handleAddTodo} />
         </div>
+        <h2>{format(selectedDate, "yyyy-MM-dd")}</h2>
         <div className="todo-list-container">
-          <h2>{format(selectedDate, "yyyy-MM-dd")}</h2>
           <TodoList todos={todos} onDeleteTodo={handleDeleteTodo} />
         </div>
       </div>
