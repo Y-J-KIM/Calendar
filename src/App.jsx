@@ -6,7 +6,7 @@ import format from "date-fns/format";
 
 const saveTodos = localStorage.getItem("todos");
 
-const App = () => {
+function App() {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [todos, setTodos] = useState(JSON.parse(saveTodos) || []);
 
@@ -14,16 +14,17 @@ const App = () => {
     setSelectedDate(date);
   };
 
-  const handleAddTodo = (todo) => {
-    setTodos([...todos, todo]);
+  const handleAddTodo = (text) => {
+    const newTodo = {
+      text: text,
+      time: selectedDate, // 여기에서 선택된 날짜를 그대로 사용
+    };
+    setTodos([...todos, newTodo]);
   };
 
-  // 필요에 따라 특정 날짜의 할 일 목록을 필터링하여 반환할 수 있습니다.
-  const getTodosForDate = (date) => {
-    const formattedDate = format(date, "yyyy-MM-dd");
-    return todos.filter(
-      (todo) => format(new Date(todo.time), "yyyy-MM-dd") === formattedDate
-    );
+  const handleDeleteTodo = (todo) => {
+    const updatedTodos = todos.filter((item) => item !== todo);
+    setTodos(updatedTodos);
   };
 
   useEffect(() => {
@@ -31,18 +32,27 @@ const App = () => {
   }, [todos]);
 
   return (
-    <div>
+    <div className="app">
       <h1>나의 달력</h1>
-      <Calendar
-        selectedDate={selectedDate}
-        onDateChange={handleDateChange}
-        todos={todos}
-      />
-      <h2>선택된 날짜: {format(selectedDate, "yyyy-MM-dd")}</h2>
-      <AddTodo onAddTodo={handleAddTodo} />
-      <TodoList todos={getTodosForDate(selectedDate)} />
+      <div className="calendar-container">
+        <Calendar
+          selectedDate={selectedDate}
+          onDateChange={handleDateChange}
+          todos={todos}
+        />
+      </div>
+      <div className="todo-container">
+        <div className="add-todo-container">
+          <h2>할 일 추가</h2>
+          <AddTodo onAddTodo={handleAddTodo} />
+        </div>
+        <div className="todo-list-container">
+          <h2>{format(selectedDate, "yyyy-MM-dd")}</h2>
+          <TodoList todos={todos} onDeleteTodo={handleDeleteTodo} />
+        </div>
+      </div>
     </div>
   );
-};
+}
 
 export default App;

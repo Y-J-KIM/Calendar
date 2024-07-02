@@ -1,19 +1,25 @@
 /* eslint-disable react/prop-types */
-
 import { format } from "date-fns";
+import "./TodoList.css";
 
-const TodoList = ({ todos }) => {
+const TodoList = ({ todos, onDeleteTodo }) => {
+  const handleDelete = (todo) => {
+    onDeleteTodo(todo);
+  };
+
   return (
-    <div>
-      <h2>할 일 목록</h2>
-      <ul>
-        {todos.map((todo, index) => (
-          <li key={index}>
-            <span>{todo.text}</span> -{" "}
-            <span>{format(new Date(todo.time), "p")}</span>
-          </li>
-        ))}
-      </ul>
+    <div className="todo-list">
+      {todos.map((todo, index) => (
+        <div className="todo-item" key={index}>
+          <div className="todo-text">
+            {format(todo.time, "HH:mm")} - <strong>{todo.text}</strong>
+          </div>
+          <button onClick={() => handleDelete(todo)} className="delete-button">
+            삭제
+          </button>
+        </div>
+      ))}
+      {todos.length === 0 && <p>할 일이 없습니다.</p>}
     </div>
   );
 };

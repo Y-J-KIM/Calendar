@@ -12,6 +12,8 @@ import {
   addMonths,
   subMonths,
   getDay,
+  addYears,
+  subYears,
 } from "date-fns";
 import "./Calendar.css";
 
@@ -21,6 +23,9 @@ const Calendar = ({ selectedDate, onDateChange, todos }) => {
     return (
       <div className="header row flex-middle">
         <div className="col col-start">
+          <div className="icon" onClick={prevYear}>
+            ◁◁
+          </div>
           <div className="icon" onClick={prevMonth}>
             ◀
           </div>
@@ -28,8 +33,13 @@ const Calendar = ({ selectedDate, onDateChange, todos }) => {
         <div className="col col-center">
           <span>{format(selectedDate, dateFormat)}</span>
         </div>
-        <div className="col col-end" onClick={nextMonth}>
-          <div className="icon">▶</div>
+        <div className="col col-end">
+          <div className="icon" onClick={nextMonth}>
+            ▶
+          </div>
+          <div className="icon" onClick={nextYear}>
+            ▷▷
+          </div>
         </div>
       </div>
     );
@@ -78,12 +88,10 @@ const Calendar = ({ selectedDate, onDateChange, todos }) => {
                 : ""
             } ${getDay(day) === 0 ? "sunday" : ""}`} // 일요일인 경우 'sunday' 클래스 추가
             key={day}
-            onClick={() => onDateChange(cloneDay)}
+            onClick={() => onDateChange(cloneDay)} // 사용자가 날짜를 클릭하면 onDateChange 함수 호출
           >
             <span className="number">{formattedDate}</span>
-            <div className="todos">
-              {hasTodosForDate(day) && <div className="dot" />}
-            </div>
+            <div className="todos">{renderTodosForDate(day)}</div>
           </div>
         );
         day = addDays(day, 1);
@@ -98,6 +106,25 @@ const Calendar = ({ selectedDate, onDateChange, todos }) => {
     return <div className="body">{rows}</div>;
   };
 
+  const renderTodosForDate = (date) => {
+    const formattedDate = format(date, "yyyy-MM-dd");
+    const todosForDate = todos.filter(
+      (todo) => format(new Date(todo.time), "yyyy-MM-dd") === formattedDate
+    );
+
+    return (
+      <>
+        {todosForDate.map((todo, index) => (
+          <div
+            key={index}
+            className="todo-item"
+            style={{ backgroundColor: todo.color }}
+          />
+        ))}
+      </>
+    );
+  };
+
   const nextMonth = () => {
     onDateChange(addMonths(selectedDate, 1));
   };
@@ -106,13 +133,13 @@ const Calendar = ({ selectedDate, onDateChange, todos }) => {
     onDateChange(subMonths(selectedDate, 1));
   };
 
-  const hasTodosForDate = (date) => {
-    const formattedDate = format(date, "yyyy-MM-dd");
-    return todos.some(
-      (todo) => format(new Date(todo.time), "yyyy-MM-dd") === formattedDate
-    );
+  const nextYear = () => {
+    onDateChange(addYears(selectedDate, 1));
   };
 
+  const prevYear = () => {
+    onDateChange(subYears(selectedDate, 1));
+  };
   return (
     <div className="calendar">
       {renderHeader()}
