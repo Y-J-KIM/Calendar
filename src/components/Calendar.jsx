@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+
 import {
   startOfMonth,
   endOfMonth,
@@ -10,27 +11,25 @@ import {
   isSameDay,
   addMonths,
   subMonths,
+  getDay,
 } from "date-fns";
-import { useState } from "react";
 import "./Calendar.css";
 
-const Calendar = ({ selectedDate, onDateChange }) => {
-  const [currentMonth, setCurrentMonth] = useState(new Date());
-
+const Calendar = ({ selectedDate, onDateChange, todos }) => {
   const renderHeader = () => {
     const dateFormat = "MMMM yyyy";
     return (
       <div className="header row flex-middle">
         <div className="col col-start">
           <div className="icon" onClick={prevMonth}>
-            이전 달
+            ◀
           </div>
         </div>
         <div className="col col-center">
-          <span>{format(currentMonth, dateFormat)}</span>
+          <span>{format(selectedDate, dateFormat)}</span>
         </div>
         <div className="col col-end" onClick={nextMonth}>
-          <div className="icon">다음 달</div>
+          <div className="icon">▶</div>
         </div>
       </div>
     );
@@ -39,11 +38,11 @@ const Calendar = ({ selectedDate, onDateChange }) => {
   const renderDays = () => {
     const dateFormat = "EEE";
     const days = [];
-    let startDate = startOfWeek(currentMonth);
+    let startDate = startOfWeek(selectedDate);
 
     for (let i = 0; i < 7; i++) {
       days.push(
-        <div className="col col-center" key={i}>
+        <div className={`col col-center ${i === 0 ? "sunday" : ""}`} key={i}>
           {format(addDays(startDate, i), dateFormat)}
         </div>
       );
@@ -53,7 +52,7 @@ const Calendar = ({ selectedDate, onDateChange }) => {
   };
 
   const renderCells = () => {
-    const monthStart = startOfMonth(currentMonth);
+    const monthStart = startOfMonth(selectedDate);
     const monthEnd = endOfMonth(monthStart);
     const startDate = startOfWeek(monthStart);
     const endDate = endOfWeek(monthEnd);
@@ -77,11 +76,14 @@ const Calendar = ({ selectedDate, onDateChange }) => {
                 : isSameDay(day, selectedDate)
                 ? "selected"
                 : ""
-            }`}
+            } ${getDay(day) === 0 ? "sunday" : ""}`} // 일요일인 경우 'sunday' 클래스 추가
             key={day}
             onClick={() => onDateChange(cloneDay)}
           >
             <span className="number">{formattedDate}</span>
+            <div className="todos">
+              {hasTodosForDate(day) && <div className="dot" />}
+            </div>
           </div>
         );
         day = addDays(day, 1);
@@ -97,11 +99,18 @@ const Calendar = ({ selectedDate, onDateChange }) => {
   };
 
   const nextMonth = () => {
-    setCurrentMonth(addMonths(currentMonth, 1));
+    onDateChange(addMonths(selectedDate, 1));
   };
 
   const prevMonth = () => {
-    setCurrentMonth(subMonths(currentMonth, 1));
+    onDateChange(subMonths(selectedDate, 1));
+  };
+
+  const hasTodosForDate = (date) => {
+    const formattedDate = format(date, "yyyy-MM-dd");
+    return todos.some(
+      (todo) => format(new Date(todo.time), "yyyy-MM-dd") === formattedDate
+    );
   };
 
   return (
