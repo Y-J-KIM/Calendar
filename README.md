@@ -1,7 +1,8 @@
 # TodoList Calendar
 
 ![claendar](./src/assets/img/calendar.PNG)
-![todolist](./src/assets/img/todolist.PNG)
+
+<!-- ![todolist](./src/assets/img/todolist.PNG) -->
 
 <h3>npm 라이브러리</h3>
 
