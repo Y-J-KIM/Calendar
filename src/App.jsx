@@ -47,7 +47,7 @@ function App() {
       <div className="todo-container">
         <div className="app-content">
           <div className="add-todo-container">
-            <h2>할 일 추가</h2>
+            <h2>Todo List 추가</h2>
             <AddTodo onAddTodo={handleAddTodo} />
           </div>
           <h2>{format(selectedDate, "yyyy-MM-dd")}</h2>
