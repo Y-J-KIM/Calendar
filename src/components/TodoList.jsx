@@ -32,13 +32,13 @@ const TodoList = ({ todos, onDeleteTodo }) => {
     <div className="todo-list-container">
       <div className="todo-column">
         <h2>
-          <span className="color-block todo"></span>할일
+          <span className="color-block todo"></span>할 일
         </h2>
         {renderTodos("todo")}
       </div>
       <div className="todo-column">
         <h2>
-          <span className="color-block doing"></span>진행중
+          <span className="color-block doing"></span>진행 중
         </h2>
         {renderTodos("doing")}
       </div>

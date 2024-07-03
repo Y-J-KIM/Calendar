@@ -47,7 +47,7 @@ const AddTodo = ({ onAddTodo }) => {
         type="text"
         value={input}
         onChange={handleChange}
-        placeholder="할 일을 입력하세요"
+        placeholder="입력하세요"
         className="todo-input"
       />
       <div className="todo-input2">
@@ -57,7 +57,7 @@ const AddTodo = ({ onAddTodo }) => {
           className="status-select"
         >
           <option value="todo">할 일</option>
-          <option value="doing">진행중</option>
+          <option value="doing">진행 중</option>
           <option value="done">완료</option>
         </select>
         <DatePicker
