@@ -8,7 +8,9 @@ const TodoList = ({ todos, onDeleteTodo }) => {
   };
 
   const renderTodos = (status) => {
-    const filteredTodos = todos.filter((todo) => todo.status === status);
+    const filteredTodos = todos
+      .filter((todo) => todo.status === status)
+      .sort((a, b) => new Date(a.time) - new Date(b.time));
     return filteredTodos.length > 0 ? (
       filteredTodos.map((todo, index) => (
         <div className="todo-item" key={index}>
@@ -17,7 +19,7 @@ const TodoList = ({ todos, onDeleteTodo }) => {
             <strong>{todo.text}</strong>
           </div>
           <button onClick={() => handleDelete(todo)} className="delete-button">
-            삭제
+            x
           </button>
         </div>
       ))
@@ -29,15 +31,21 @@ const TodoList = ({ todos, onDeleteTodo }) => {
   return (
     <div className="todo-list-container">
       <div className="todo-column">
-        <h2>할일</h2>
+        <h2>
+          <span className="color-block todo"></span>할일
+        </h2>
         {renderTodos("todo")}
       </div>
       <div className="todo-column">
-        <h2>진행중</h2>
+        <h2>
+          <span className="color-block doing"></span>진행중
+        </h2>
         {renderTodos("doing")}
       </div>
       <div className="todo-column">
-        <h2>완료</h2>
+        <h2>
+          <span className="color-block done"></span>완료
+        </h2>
         {renderTodos("done")}
       </div>
     </div>

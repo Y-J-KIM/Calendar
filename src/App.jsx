@@ -36,7 +36,7 @@ function App() {
 
   return (
     <div className="app">
-      <h1>Todo List</h1>
+      <h1 className="title">Todo List</h1>
       <div className="calendar-container">
         <Calendar
           selectedDate={selectedDate}
@@ -45,16 +45,18 @@ function App() {
         />
       </div>
       <div className="todo-container">
-        <div className="add-todo-container">
-          <h2>할 일 추가</h2>
-          <AddTodo onAddTodo={handleAddTodo} />
-        </div>
-        <h2>{format(selectedDate, "yyyy-MM-dd")}</h2>
-        <div className="todo-list-container">
-          <TodoList
-            todos={todosForSelectedDate}
-            onDeleteTodo={handleDeleteTodo}
-          />
+        <div className="app-content">
+          <div className="add-todo-container">
+            <h2>할 일 추가</h2>
+            <AddTodo onAddTodo={handleAddTodo} />
+          </div>
+          <h2>{format(selectedDate, "yyyy-MM-dd")}</h2>
+          <div className="todo-list-container">
+            <TodoList
+              todos={todosForSelectedDate}
+              onDeleteTodo={handleDeleteTodo}
+            />
+          </div>
         </div>
       </div>
     </div>

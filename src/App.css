@@ -10,6 +10,27 @@
   font-family: "WavvePADO-Regular";
 }
 
+.title {
+  display: flex;
+  justify-content: center;
+}
+
+.todo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60vh; /* Viewport height */
+}
+
+.app-content {
+  width: 818px; /* Adjust the width as needed */
+  max-width: 800px; /* Optional: maximum width */
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
 .todo-list-container {
   margin-top: 20px;
   width: 100%;
@@ -18,4 +39,11 @@
 .todo-list-container h2 {
   margin-bottom: 20px;
   text-align: center;
+}
+
+.calendar-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }

@@ -19,7 +19,7 @@ import "./Calendar.css";
 
 const Calendar = ({ selectedDate, onDateChange, todos }) => {
   const renderHeader = () => {
-    const dateFormat = "MMMM yyyy";
+    const dateFormat = "yyyy년 MM월";
     return (
       <div className="header row flex-middle">
         <div className="col col-start">
@@ -46,14 +46,15 @@ const Calendar = ({ selectedDate, onDateChange, todos }) => {
   };
 
   const renderDays = () => {
-    const dateFormat = "EEE";
+    //const dateFormat = "EEE";
     const days = [];
-    let startDate = startOfWeek(selectedDate);
+    const weekdays = ["일", "월", "화", "수", "목", "금", "토"];
+    //let startDate = startOfWeek(selectedDate);
 
     for (let i = 0; i < 7; i++) {
       days.push(
         <div className={`col col-center ${i === 0 ? "sunday" : ""}`} key={i}>
-          {format(addDays(startDate, i), dateFormat)}
+          {weekdays[i]}
         </div>
       );
     }
@@ -113,12 +114,18 @@ const Calendar = ({ selectedDate, onDateChange, todos }) => {
       (todo) => format(new Date(todo.time), "yyyy-MM-dd") === formattedDate
     );
 
+    const statusOrder = { todo: 1, doing: 2, done: 3 };
+
+    const sortedTodosForDate = todosForDate.sort(
+      (a, b) => statusOrder[a.status] - statusOrder[b.status]
+    );
+
     return (
       <>
-        {todosForDate.map((todo, index) => (
+        {sortedTodosForDate.map((todo, index) => (
           <div
             key={index}
-            className="todo-item"
+            className="dot"
             style={{ backgroundColor: getTodoColor(todo.status) }}
           ></div>
         ))}
@@ -129,13 +136,11 @@ const Calendar = ({ selectedDate, onDateChange, todos }) => {
   const getTodoColor = (status) => {
     switch (status) {
       case "todo":
-        return "#f7dd4c";
+        return "#f39c12";
       case "doing":
-        return "#4caf50";
+        return "#2ecc71";
       case "done":
-        return "#ff4d4d";
-      default:
-        return "#000";
+        return "#3498db";
     }
   };
 
@@ -156,10 +161,12 @@ const Calendar = ({ selectedDate, onDateChange, todos }) => {
   };
 
   return (
-    <div className="calendar">
-      {renderHeader()}
-      {renderDays()}
-      {renderCells()}
+    <div className="calendar_container">
+      <div className="calendar">
+        {renderHeader()}
+        {renderDays()}
+        {renderCells()}
+      </div>
     </div>
   );
 };

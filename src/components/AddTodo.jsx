@@ -4,6 +4,8 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./AddTodo.css";
 
+import { ko } from "date-fns/locale";
+
 const AddTodo = ({ onAddTodo }) => {
   const [input, setInput] = useState("");
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -59,16 +61,19 @@ const AddTodo = ({ onAddTodo }) => {
           <option value="done">완료</option>
         </select>
         <DatePicker
+          locale={ko}
           selected={selectedDate}
           onChange={handleDateChange}
           showTimeSelect
-          timeFormat="HH:mm"
+          //timeFormat="HH:mm"
           timeIntervals={15}
           timeCaption="시간"
-          dateFormat="YYYY-MM-dd h:mm aa"
+          dateFormat="YYYY-MM-dd h:mm"
           className="datepicker"
           popperPlacement="bottom"
-          placeholderText="시간을 선택해주세요"
+          showYearDropdown
+          scrollableYearDropdown
+          yearDropdownItemNumber={100}
         />
 
         <button type="submit" className="add-button">
