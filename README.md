@@ -1,8 +1,14 @@
-# React + Vite
+# TodoList Calendar
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![claendar](./src/assets/img/calendar.PNG)
+![todolist](./src/assets/img/todolist.PNG)
 
-Currently, two official plugins are available:
+<h3>npm 라이브러리</h3>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- date-fns : 날짜 형식을 한글로 변경
+- react-datepicker : 날짜 및 시간을 선택
+
+<h3>기능</h3>
+
+- 할 일 / 진행 중 / 완료 3가지로 나누어 작성
+- 캘린더에 각각 색을 지정해 날짜에 점으로 표시
