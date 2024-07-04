@@ -43,10 +43,10 @@
   background-color: #f39c12; /* 할일 색상 */
 }
 
-.color-block.done {
-  background-color: #3498db; /* 진행중 색상 */
+.color-block.doing {
+  background-color: #2ecc71; /* 진행중 색상 */
 }
 
-.color-block.doing {
-  background-color: #2ecc71; /* 완료 색상 */
+.color-block.done {
+  background-color: #3498db; /* 완료 색상 */
 }

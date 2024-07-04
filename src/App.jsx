@@ -5,6 +5,7 @@ import AddTodo from "./components/AddTodo";
 import format from "date-fns/format";
 
 import "./App.css";
+
 const saveTodos = localStorage.getItem("todos");
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
   return (
     <div className="app">
       <h1 className="title">Todo List</h1>
+      <div className="google-login"></div>
       <div className="calendar-container">
         <Calendar
           selectedDate={selectedDate}
