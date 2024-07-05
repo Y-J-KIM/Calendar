@@ -34,7 +34,6 @@ const Calendar = ({ selectedDate, onDateChange, todos }) => {
         const response = await axios.get(url);
 
         const holidaysData = response.data.response.body.items.item;
-
         if (holidaysData) {
           setHolidays(
             Array.isArray(holidaysData) ? holidaysData : [holidaysData]
@@ -111,12 +110,17 @@ const Calendar = ({ selectedDate, onDateChange, todos }) => {
     while (day <= endDate) {
       for (let i = 0; i < 7; i++) {
         formattedDate = format(day, dateFormat);
+
         const cloneDay = day;
+
         // 공휴일 확인
         const isHoliday = holidays.some(
-          (holiday) =>
-            holiday.locdate === format(cloneDay, "yyyy-MM-dd") &&
-            holiday.isHoliday === "Y"
+          (holiday) => holiday.locdate == format(cloneDay, "yyyyMMdd")
+        );
+
+        // 공휴일 이름 설정
+        const holiday = holidays.find(
+          (holiday) => holiday.locdate == format(cloneDay, "yyyyMMdd")
         );
 
         days.push(
@@ -127,12 +131,16 @@ const Calendar = ({ selectedDate, onDateChange, todos }) => {
                 : isSameDay(day, selectedDate)
                 ? "selected"
                 : ""
-            } ${getDay(day) === 0 ? "sunday" : ""}`} // 일요일인 경우 'sunday' 클래스 추가
+            } ${getDay(day) === 0 ? "sunday" : ""} ${
+              isHoliday ? "holiday" : ""
+            }`} // 일요일/공휴일인 경우 'sunday'/'holiaday' 클래스 추가
             key={day}
             onClick={() => onDateChange(cloneDay)} // 사용자가 날짜를 클릭하면 onDateChange 함수 호출
           >
             <span className="number">{formattedDate}</span>
-            {isHoliday && <div className="holiday-text">공휴일</div>}
+            {isHoliday && (
+              <div className="holiday-text">{holiday.dateName}</div>
+            )}
             <div className="todos">{renderTodosForDate(day)}</div>
           </div>
         );

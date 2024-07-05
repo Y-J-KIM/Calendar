@@ -24,7 +24,7 @@ const TodoList = ({ todos, onDeleteTodo }) => {
         </div>
       ))
     ) : (
-      <p className="p1">할 일이 없습니다.</p>
+      <p className="p1">목록이 없습니다.</p>
     );
   };
 

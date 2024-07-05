@@ -117,8 +117,13 @@
   color: red;
 }
 
+.holiday {
+  color: red;
+}
+
 .holiday-text {
-  color: black; /* 검은색 텍스트 */
+  color: red;
   font-size: 12px; /* 텍스트 크기 설정 */
   text-align: center; /* 가운데 정렬 */
+  margin-top: 6px;
 }

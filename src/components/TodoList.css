@@ -29,6 +29,7 @@
 
 .p1 {
   display: flex;
+  color: lightgray;
 }
 
 .color-block {
